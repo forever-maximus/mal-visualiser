@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  flaskapp:
+    restart: always
+    build: ./backend
+    ports:
+      - "5000:5000"
+    command: gunicorn -w 3 -b 0.0.0.0:5000 app:app
+
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "8000:80"
+    depends_on:
+      - flaskapp
