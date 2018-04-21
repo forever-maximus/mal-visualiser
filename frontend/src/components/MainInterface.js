@@ -38,31 +38,37 @@ class MainInterface extends Component {
     const newScores = {user: this.state.userSearch, scores: ratingData};
     let newUserList = this.state.userList;
     newUserList.push(this.state.userSearch);
-    this.setState({
-      userData: [...this.state.userData, newScores],
-      userList: newUserList,
-      useExample: false,
+    
+    this.addAggregateUserScore(this.state.userSearch, ratingData).then(agregateScores => {
+      this.setState({
+        userData: [...this.state.userData, newScores],
+        agregateData: agregateScores,
+        userList: newUserList,
+        useExample: false,
+      });
     });
-    this.addAggregateUserScore(this.state.userSearch, ratingData);
   }
 
   addAggregateUserScore = (user, ratingList) => {
-    let totals = {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0,
+    return new Promise((resolve, reject) => {
+      let totals = {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0,
         '6': 0, '7': 0, '8': 0, '9': 0, '10': 0};
 
-    ratingList.forEach(element => {
-      if (totals.hasOwnProperty(element.score)) {
-        totals[element.score] += 1;
-      }
+      ratingList.forEach(element => {
+        if (totals.hasOwnProperty(element.score)) {
+          totals[element.score] += 1;
+        }
+      });
+      
+      let agregateScores = this.state.agregateData;
+      let index = 0;
+      Object.entries(totals).forEach(([key, value]) => {
+        agregateScores[index][user] = value;
+        index += 1;
+      });
+      
+      resolve(agregateScores);
     });
-    
-    let agregateScores = this.state.agregateData;
-    let index = 0;
-    Object.entries(totals).forEach(([key, value]) => {
-      agregateScores[index][user] = value;
-      index += 1;
-    });
-    this.setState({agregateData: agregateScores});
   }
 
   updateUserSearch = (ev) => {
