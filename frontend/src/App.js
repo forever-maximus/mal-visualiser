@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MainInterface from './components/MainInterface';
+import MainInterfaceContainer from './containers/MainInterfaceContainer';
 import './App.css';
 
 class App extends Component {
@@ -13,7 +13,7 @@ class App extends Component {
           Enter usernames from My Anime List to see a visualisation of user ratings. Add multiple names
           to easily compare with friends.
         </p>
-        <MainInterface />
+        <MainInterfaceContainer />
       </div>
     );
   }
