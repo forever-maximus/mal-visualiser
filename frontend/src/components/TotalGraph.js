@@ -1,18 +1,6 @@
 import React, { Component } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-const exampleData = [
-  {score: '1', exampleUser: 0},
-  {score: '2', exampleUser: 0},
-  {score: '3', exampleUser: 2},
-  {score: '4', exampleUser: 4},
-  {score: '5', exampleUser: 0},
-  {score: '6', exampleUser: 10},
-  {score: '7', exampleUser: 12},
-  {score: '8', exampleUser: 15},
-  {score: '9', exampleUser: 8},
-  {score: '10', exampleUser: 4},
-];
+import { exampleAggregateData } from '../example-data';
 
 const colourList = [
   '#2196f3',
@@ -37,10 +25,10 @@ class TotalGraph extends Component {
 
   render() {
     return (
-      <div style={{width: '80%', margin: '0 auto'}}>
+      <div style={{width: '85%', margin: '0 auto'}}>
         <ResponsiveContainer width='100%' height={300}>
           <LineChart margin={{ top: 5, right: 20, bottom: 5, left: 0 }} 
-              data={this.props.useExample ? exampleData : this.props.data}>
+              data={this.props.useExample ? exampleAggregateData : this.props.data}>
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis dataKey='score' />
             <YAxis />
