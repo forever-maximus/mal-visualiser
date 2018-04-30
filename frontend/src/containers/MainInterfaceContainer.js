@@ -31,18 +31,18 @@ class MainInterfaceContainer extends Component {
 
   addUserScore = (userMalData) => {
     let ratingData = [];
+    const newUsername = this.state.userSearch;
+
     userMalData.myanimelist.anime.forEach(element => {
-      ratingData.push({name: element.series_title, score: element.my_score})
+      ratingData.push({name: element.series_title, score: element.my_score});
     });
-    const newScores = {user: this.state.userSearch, scores: ratingData};
-    let newUserList = this.state.userList;
-    newUserList.push(this.state.userSearch);
+    const newScores = {user: newUsername, scores: ratingData};
     
-    this.addAggregateUserScore(this.state.userSearch, ratingData).then(aggregateScores => {
+    this.addAggregateUserScore(newUsername, ratingData).then(aggregateScores => {
       this.setState({
         userData: [...this.state.userData, newScores],
         aggregateData: aggregateScores,
-        userList: newUserList,
+        userList: [...this.state.userList, newUsername],
         useExample: false,
       });
     });
@@ -60,10 +60,8 @@ class MainInterfaceContainer extends Component {
       });
       
       let aggregateScores = this.state.aggregateData;
-      let index = 0;
-      Object.entries(totals).forEach(([key, value]) => {
+      Object.entries(totals).forEach(([key, value], index) => {
         aggregateScores[index][user] = value;
-        index += 1;
       });
       
       resolve(aggregateScores);
@@ -77,7 +75,7 @@ class MainInterfaceContainer extends Component {
   render() {
     return (
         <MainInterface updateUserSearch={this.updateUserSearch} searchUser={this.searchUser}
-            data={this.state.userData} aggregateData={this.state.aggregateData} 
+            userData={this.state.userData} aggregateData={this.state.aggregateData} 
             users={this.state.userList} useExample={this.state.useExample}
         />
     );

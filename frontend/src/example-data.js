@@ -2,32 +2,55 @@
 ** entered any usernames. */
 
 export const exampleAggregateData = [
-  {score: '1', exampleUser: 0},
-  {score: '2', exampleUser: 0},
-  {score: '3', exampleUser: 2},
-  {score: '4', exampleUser: 4},
-  {score: '5', exampleUser: 0},
-  {score: '6', exampleUser: 10},
-  {score: '7', exampleUser: 12},
-  {score: '8', exampleUser: 15},
-  {score: '9', exampleUser: 8},
-  {score: '10', exampleUser: 4},
+  {score: '1', exampleUser: 1, 'Name Example': 0},
+  {score: '2', exampleUser: 0, 'Name Example': 0},
+  {score: '3', exampleUser: 0, 'Name Example': 0},
+  {score: '4', exampleUser: 0, 'Name Example': 0},
+  {score: '5', exampleUser: 2, 'Name Example': 1},
+  {score: '6', exampleUser: 1, 'Name Example': 3},
+  {score: '7', exampleUser: 5, 'Name Example': 4},
+  {score: '8', exampleUser: 3, 'Name Example': 2},
+  {score: '9', exampleUser: 2, 'Name Example': 1},
+  {score: '10', exampleUser: 1, 'Name Example': 1},
 ];
 
-export const exampleListData = {
-  'Example One': {exampleUser: 1},
-  '5 Examples per Second': {exampleUser: 8},
-  'Your Example in April': {exampleUser: 5},
-  'Code Example': {exampleUser: 7},
-  'Example in the Shell': {exampleUser: 7},
-  'Fullmetal Example': {exampleUser: 5},
-  'The Melancholy of Example': {exampleUser: 8},
-  'Example\'s Moving Castle': {exampleUser: 9},
-  'Great Teacher Example': {exampleUser: 10},
-  'The Example Who Leapt Through Time': {exampleUser: 7},
-  'Example!': {exampleUser: 6},
-  'Attack on Example': {exampleUser: 8},
-  'Welcome to the E.x.a.m.p.l.e': {exampleUser: 7},
-  'Example x Example': {exampleUser: 7},
-  'Princess Example': {exampleUser: 9},
-};
+export const exampleListData = [
+  {
+    user: 'exampleUser',
+    scores: [
+      {name: 'Example One', score: 1},
+      {name: '5 Examples per Second', score: 8},
+      {name: 'Your Example in April', score: 5},
+      {name: 'Code Example', score: 7},
+      {name: 'Example in the Shell', score: 7},
+      {name: 'Fullmetal Example', score: 5},
+      {name: 'The Melancholy of Example', score: 8},
+      {name: 'Example\'s Moving Castle', score: 9},
+      {name: 'Great Teacher Example', score: 10},
+      {name: 'The Example Who Leapt Through Time', score: 7},
+      {name: 'Example!', score: 6},
+      {name: 'Attack on Example', score: 8},
+      {name: 'Welcome to the E.x.a.m.p.l.e', score: 7},
+      {name: 'Example x Example', score: 7},
+      {name: 'Princess Example', score: 9},
+    ]
+  },
+  {
+    user: 'Name Example',
+    scores: [
+      {name: '5 Examples per Second', score: 6},
+      {name: 'Your Example in April', score: 9},
+      {name: 'Code Example', score: 7},
+      {name: 'Example in the Shell', score: 6},
+      {name: 'Fullmetal Example', score: 10},
+      {name: 'Attack on Example', score: 7},
+      {name: 'Welcome to the E.x.a.m.p.l.e', score: 5},
+      {name: 'Example x Example', score: 7},
+      {name: 'Princess Example', score: 8},
+      {name: 'Steins;Example', score: 8},
+      {name: 'Cowboy Example', score: 7},
+      {name: 'Example Piece', score: 6},
+      {name: 'Example Ultimate', score: 7},
+    ]
+  }
+];

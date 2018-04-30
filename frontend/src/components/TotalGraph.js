@@ -14,7 +14,8 @@ class TotalGraph extends Component {
   getGraphLines = () => {
     let lines = [];
     if (this.props.useExample === true) {
-      lines.push(<Line key={0} dataKey='exampleUser' type='monotone' stroke='#82ca9d' />);
+      lines.push(<Line key={0} dataKey='exampleUser' type='monotone' stroke='#f44336' />);
+      lines.push(<Line key={1} dataKey='Name Example' type='monotone' stroke='#43a047' />);
     } else {
       this.props.users.forEach((element, i) => {
         lines.push(<Line dataKey={element} key={i} type='monotone' stroke={colourList[i%5]} />)

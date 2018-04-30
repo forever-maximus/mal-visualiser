@@ -24,7 +24,8 @@ class MainInterface extends Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column>
-              <AnimeTableList />
+              <AnimeTableList userData={this.props.userData} users={this.props.users} 
+                useExample={this.props.useExample} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
