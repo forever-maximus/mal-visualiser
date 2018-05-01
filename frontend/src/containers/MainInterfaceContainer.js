@@ -13,6 +13,7 @@ class MainInterfaceContainer extends Component {
       ],
       userList: [],
       userSearch: '',
+      userSearchError: '',
       useExample: true,
     };
   }
@@ -20,12 +21,16 @@ class MainInterfaceContainer extends Component {
   searchUser = () => {
     if (this.state.userSearch !== '') {
       get_user_ratings(this.state.userSearch).then(responseData => {
-        this.addUserScore(responseData);
+        if (responseData.myanimelist === null) {
+          this.setState({userSearchError: 'This user can\'t be found on myanimelist'});
+        } else {
+          this.addUserScore(responseData);
+        }
       }).catch(errorData => {
         console.log(errorData);
       });
     } else {
-      console.log('Username required!');
+      this.setState({userSearchError: 'Please enter a username'});
     }
   }
 
@@ -69,14 +74,19 @@ class MainInterfaceContainer extends Component {
   }
 
   updateUserSearch = (ev) => {
-    this.setState({userSearch: ev.target.value});
+    if (this.state.userSearchError !== '') {
+      this.setState({userSearch: ev.target.value, userSearchError: ''});
+    } else {
+      this.setState({userSearch: ev.target.value});
+    }
   }
 
   render() {
     return (
         <MainInterface updateUserSearch={this.updateUserSearch} searchUser={this.searchUser}
             userData={this.state.userData} aggregateData={this.state.aggregateData} 
-            users={this.state.userList} useExample={this.state.useExample}
+            users={this.state.userList} useExample={this.state.useExample} 
+            userSearchError={this.state.userSearchError}
         />
     );
   }
