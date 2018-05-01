@@ -9,11 +9,10 @@ class MainInterface extends Component {
       <div>
         <Grid centered style={{width: '80%', margin: '0 auto'}}>
           <Grid.Row>
-            <Grid.Column width={8} textAlign='right'>
-              <Input placeholder='Username' onChange={this.props.updateUserSearch} />
-            </Grid.Column>
-            <Grid.Column width={8}>
-              <Button content='Get Stats' onClick={this.props.searchUser} />
+            <Grid.Column textAlign='center'>
+              <Input placeholder='Username' onChange={this.props.updateUserSearch} 
+                action={ <Button icon='search' content='Get Stats' onClick={this.props.searchUser}/> }
+              />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
