@@ -15,14 +15,19 @@ class MainInterfaceContainer extends Component {
       userSearch: '',
       userSearchError: '',
       useExample: true,
+      isLoading: false,
     };
   }
 
   searchUser = () => {
     if (this.state.userSearch !== '') {
+      this.setState({isLoading: true});
       get_user_ratings(this.state.userSearch).then(responseData => {
         if (responseData.myanimelist === null) {
-          this.setState({userSearchError: 'This user can\'t be found on myanimelist'});
+          this.setState({
+            userSearchError: 'This user can\'t be found on myanimelist',
+            isLoading: false,
+          });
         } else {
           this.addUserScore(responseData);
         }
@@ -49,6 +54,7 @@ class MainInterfaceContainer extends Component {
         aggregateData: aggregateScores,
         userList: [...this.state.userList, newUsername],
         useExample: false,
+        isLoading: false,
       });
     });
   }
@@ -86,7 +92,7 @@ class MainInterfaceContainer extends Component {
         <MainInterface updateUserSearch={this.updateUserSearch} searchUser={this.searchUser}
             userData={this.state.userData} aggregateData={this.state.aggregateData} 
             users={this.state.userList} useExample={this.state.useExample} 
-            userSearchError={this.state.userSearchError}
+            userSearchError={this.state.userSearchError} isLoading={this.state.isLoading}
         />
     );
   }

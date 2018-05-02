@@ -9,7 +9,7 @@ class MainInterface extends Component {
       return <div><Label basic color='red' pointing>{this.props.userSearchError}</Label></div>;
     }
   }
-  
+
   render() {
     return (
       <div>
@@ -17,7 +17,8 @@ class MainInterface extends Component {
           <Grid.Row>
             <Grid.Column textAlign='center'>
               <Input placeholder='Username' onChange={this.props.updateUserSearch} 
-                action={ <Button icon='search' content='Get Stats' onClick={this.props.searchUser}/> }
+                action={ <Button icon='search' content='Get Stats' onClick={this.props.searchUser}/> } 
+                loading={this.props.isLoading} iconPosition='left' icon='user' 
               />
               {this.getInputErrors()}
             </Grid.Column>
