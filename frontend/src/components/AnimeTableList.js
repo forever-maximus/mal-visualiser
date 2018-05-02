@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Table } from 'semantic-ui-react';
 import { exampleListData } from '../example-data';
 
-class AnimeTableList extends Component {
+class AnimeTableList extends PureComponent {
   getUsers = () => {
     let rows = [];
     if (this.props.useExample === true) {
@@ -36,7 +36,7 @@ class AnimeTableList extends Component {
         }
       });
     });
-
+    
     // Fill in blanks for each user
     userList.forEach(user => {
       Object.entries(workingData).forEach(([animeName, userScores]) => {

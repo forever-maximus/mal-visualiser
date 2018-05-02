@@ -1,26 +1,18 @@
-import React, { Component } from 'react';
-import { Input, Button, Grid, Label } from 'semantic-ui-react';
+import React, { PureComponent } from 'react';
+import { Grid } from 'semantic-ui-react';
 import TotalGraph from './TotalGraph';
 import AnimeTableList from './AnimeTableList';
+import UserSearchInput from './UserSearchInput';
 
-class MainInterface extends Component {
-  getInputErrors = () => {
-    if (this.props.userSearchError !== '') {
-      return <div><Label basic color='red' pointing>{this.props.userSearchError}</Label></div>;
-    }
-  }
-
+class MainInterface extends PureComponent {
   render() {
     return (
       <div>
         <Grid centered style={{width: '80%', margin: '0 auto'}}>
           <Grid.Row>
             <Grid.Column textAlign='center'>
-              <Input placeholder='Username' onChange={this.props.updateUserSearch} 
-                action={ <Button icon='search' content='Get Stats' onClick={this.props.searchUser}/> } 
-                loading={this.props.isLoading} iconPosition='left' icon='user' 
-              />
-              {this.getInputErrors()}
+              <UserSearchInput isLoading={this.props.isLoading} updateUserSearch={this.props.updateUserSearch}
+                userSearchError={this.props.userSearchError} searchUser={this.props.searchUser} />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { exampleAggregateData } from '../example-data';
 
@@ -10,7 +10,7 @@ const colourList = [
   '#9c27b0',
 ];
 
-class TotalGraph extends Component {
+class TotalGraph extends PureComponent {
   getGraphLines = () => {
     let lines = [];
     if (this.props.useExample === true) {
@@ -33,7 +33,7 @@ class TotalGraph extends Component {
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis dataKey='score' />
             <YAxis />
-            <Tooltip />
+            <Tooltip wrapperStyle={{opacity: 0.98, borderRadius: '5px'}}/>
             <Legend />
             {this.getGraphLines()}
           </LineChart>
