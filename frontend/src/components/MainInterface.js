@@ -18,7 +18,8 @@ class MainInterface extends PureComponent {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column textAlign='center'>
-              <UserList useExample={this.props.useExample} users={this.props.users}/>
+              <UserList useExample={this.props.useExample} users={this.props.users} 
+                removeUser={this.props.removeUser}/>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

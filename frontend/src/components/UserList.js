@@ -7,7 +7,9 @@ class UserList extends PureComponent {
     const selectedUserList = this.props.useExample ? exampleUserList : this.props.users;
 
     return selectedUserList.map((username, i) => {
-      return <List.Item key={i}><Label>{username}</Label></List.Item>;
+      return <List.Item key={i}>
+          <Label>{username}<Icon name='delete' onClick={this.props.removeUser.bind(this, {username})}/></Label>
+        </List.Item>;
     });
   }
   
