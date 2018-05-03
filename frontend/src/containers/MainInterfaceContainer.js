@@ -20,7 +20,11 @@ class MainInterfaceContainer extends Component {
   }
 
   searchUser = () => {
-    if (this.state.userSearch !== '') {
+    if (this.state.userSearch === '') {
+      this.setState({userSearchError: 'Please enter a username'});
+    } else if (this.state.userList.includes(this.state.userSearch)) {
+      this.setState({userSearchError: 'This user is already added'});
+    } else {
       this.setState({isLoading: true});
       get_user_ratings(this.state.userSearch).then(responseData => {
         if (responseData.myanimelist === null) {
@@ -34,8 +38,6 @@ class MainInterfaceContainer extends Component {
       }).catch(errorData => {
         console.log(errorData);
       });
-    } else {
-      this.setState({userSearchError: 'Please enter a username'});
     }
   }
 
@@ -111,7 +113,9 @@ class MainInterfaceContainer extends Component {
   }
 
   updateUserSearch = (ev) => {
-    if (this.state.userSearchError !== '') {
+    if (ev.key === 'Enter') {
+      this.searchUser();
+    } else if (this.state.userSearchError !== '') {
       this.setState({userSearch: ev.target.value, userSearchError: ''});
     } else {
       this.setState({userSearch: ev.target.value});
@@ -124,7 +128,7 @@ class MainInterfaceContainer extends Component {
             userData={this.state.userData} aggregateData={this.state.aggregateData} 
             users={this.state.userList} useExample={this.state.useExample} 
             userSearchError={this.state.userSearchError} isLoading={this.state.isLoading}
-            removeUser={this.removeUser}
+            removeUser={this.removeUser} submitUserSearch={this.submitUserSearch}
         />
     );
   }
