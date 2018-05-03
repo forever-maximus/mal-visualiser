@@ -1,6 +1,11 @@
 /* Example data which is used to preview the display before the user has 
 ** entered any usernames. */
 
+export const exampleUserList = ['exampleUser', 'Name Example'];
+
+// This is made 5 colours purely for consistency with the colour list for non example users
+export const exampleColourList = ['#f44336', '#43a047', '#2196f3', '#ffca28', '#9c27b0'];
+
 export const exampleAggregateData = [
   {score: '1', exampleUser: 1, 'Name Example': 0},
   {score: '2', exampleUser: 0, 'Name Example': 0},

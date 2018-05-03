@@ -1,20 +1,14 @@
 import React, { PureComponent } from 'react';
 import { Table } from 'semantic-ui-react';
-import { exampleListData } from '../example-data';
+import { exampleListData, exampleUserList } from '../example-data';
 
 class AnimeTableList extends PureComponent {
   getUsers = () => {
-    let rows = [];
-    if (this.props.useExample === true) {
-      rows.push(<Table.HeaderCell key={1}>exampleUser</Table.HeaderCell>);
-      rows.push(<Table.HeaderCell key={2}>Name Example</Table.HeaderCell>);
-    } else {
-      this.props.users.forEach((user, i) => {
-        rows.push(<Table.HeaderCell key={i+1}>{user}</Table.HeaderCell>);
-      });
-    }
-    
-    return rows;
+    const selectedUserList = this.props.useExample ? exampleUserList : this.props.users;
+
+    return selectedUserList.map((user, i) => {
+      return <Table.HeaderCell key={i+1}>{user}</Table.HeaderCell>;
+    });
   }
 
   getAnimeList = () => {

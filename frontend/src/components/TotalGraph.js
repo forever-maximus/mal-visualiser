@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { exampleAggregateData } from '../example-data';
+import { exampleAggregateData, exampleUserList, exampleColourList } from '../example-data';
 
 const colourList = [
   '#2196f3',
@@ -12,16 +12,12 @@ const colourList = [
 
 class TotalGraph extends PureComponent {
   getGraphLines = () => {
-    let lines = [];
-    if (this.props.useExample === true) {
-      lines.push(<Line key={0} dataKey='exampleUser' type='monotone' stroke='#f44336' />);
-      lines.push(<Line key={1} dataKey='Name Example' type='monotone' stroke='#43a047' />);
-    } else {
-      this.props.users.forEach((element, i) => {
-        lines.push(<Line dataKey={element} key={i} type='monotone' stroke={colourList[i%5]} />)
-      });
-    }
-    return lines;
+    const selectedUserList = this.props.useExample ? exampleUserList : this.props.users;
+    const selectedColourList = this.props.useExample ? exampleColourList : colourList;
+
+    return selectedUserList.map((element, i) => {
+      return <Line dataKey={element} key={i} type='monotone' stroke={selectedColourList[i%5]} />;
+    });
   }
 
   render() {
