@@ -4,12 +4,13 @@ import TotalGraph from './TotalGraph';
 import AnimeTableList from './AnimeTableList';
 import UserSearchInput from './UserSearchInput';
 import UserList from './UserList';
+import './styles/MainInterface.css';
 
 class MainInterface extends PureComponent {
   render() {
     return (
       <div>
-        <Grid centered style={{width: '80%', margin: '0 auto'}}>
+        <Grid centered className='grid-container'>
           <Grid.Row>
             <Grid.Column textAlign='center'>
               <UserSearchInput isLoading={this.props.isLoading} updateUserSearch={this.props.updateUserSearch}

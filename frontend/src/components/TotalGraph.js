@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { exampleAggregateData, exampleUserList, exampleColourList } from '../example-data';
+import './styles/TotalGraph.css';
 
 const colourList = [
   '#2196f3',
@@ -22,7 +23,7 @@ class TotalGraph extends PureComponent {
 
   render() {
     return (
-      <div style={{width: '85%', margin: '0 auto'}}>
+      <div className='graph-container'>
         <ResponsiveContainer width='100%' height={300}>
           <LineChart margin={{ top: 5, right: 20, bottom: 5, left: 0 }} 
               data={this.props.useExample ? exampleAggregateData : this.props.data}>

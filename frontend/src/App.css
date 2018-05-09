@@ -14,4 +14,14 @@
 
 .App-intro {
   font-size: large;
+  padding: 10px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+@media (max-width: 767px) { 
+  .App-intro {
+    font-size: medium;
+    width: 100%;
+  }
 }

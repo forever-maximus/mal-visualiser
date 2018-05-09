@@ -1,0 +1,10 @@
+.grid-container {
+  margin: 0 auto !important;
+  width: 80%;
+}
+
+@media (max-width: 1199px) { 
+  .grid-container {
+    width: 100% !important;
+  }
+}
