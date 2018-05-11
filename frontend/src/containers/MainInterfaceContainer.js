@@ -21,23 +21,30 @@ class MainInterfaceContainer extends Component {
 
   searchUser = () => {
     if (this.state.userSearch === '') {
-      this.setState({userSearchError: 'Please enter a username'});
+      this.raiseSearchError('Please enter a username', false);
     } else if (this.state.userList.includes(this.state.userSearch)) {
-      this.setState({userSearchError: 'This user is already added'});
+      this.raiseSearchError('This user is already added', false);
     } else {
       this.setState({isLoading: true});
       get_user_ratings(this.state.userSearch).then(responseData => {
         if (responseData.myanimelist === null) {
-          this.setState({
-            userSearchError: 'This user can\'t be found on myanimelist',
-            isLoading: false,
-          });
+          this.raiseSearchError('This user can\'t be found on myanimelist', true);
+        } else if (responseData.myanimelist.hasOwnProperty('anime') === false) {
+          this.raiseSearchError('This user hasn\'t added any ratings yet', true);
         } else {
           this.addUserScore(responseData);
         }
       }).catch(errorData => {
         console.log(errorData);
       });
+    }
+  }
+
+  raiseSearchError = (error, cancelLoad) => {
+    if (cancelLoad === true) {
+      this.setState({userSearchError: error, isLoading: false});
+    } else {
+      this.setState({userSearchError: error});
     }
   }
 
