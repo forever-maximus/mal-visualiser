@@ -95,6 +95,7 @@ class MainInterfaceContainer extends Component {
         userList: [...this.state.userList, newUsername],
         useExample: false,
         isLoading: false,
+        userSearch: '',
       });
     });
   }

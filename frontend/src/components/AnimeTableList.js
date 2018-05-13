@@ -6,9 +6,16 @@ class AnimeTableList extends PureComponent {
   getUsers = () => {
     const selectedUserList = this.props.useExample ? exampleUserList : this.props.users;
 
-    return selectedUserList.map((user, i) => {
+    const userHeaders = selectedUserList.map((user, i) => {
       return <Table.HeaderCell key={i+1}>{user}</Table.HeaderCell>;
     });
+
+    const differenceLabel = selectedUserList.length > 2 ? 'Average Difference' : 'Difference';
+    if (selectedUserList.length === 1) {
+      return userHeaders;
+    } else {
+      return ([...userHeaders, <Table.HeaderCell key={userHeaders.length+1}>{differenceLabel}</Table.HeaderCell>]);
+    }
   }
 
   getAnimeList = () => {
@@ -52,6 +59,10 @@ class AnimeTableList extends PureComponent {
 
     const sortedAnimeList = this.sortAnimeList(unsortedAnimeList);
 
+    if (userList.length > 1) {
+      this.getDifferenceScores(sortedAnimeList);
+    }
+
     let animeDetails = [], rows = [];
     sortedAnimeList.forEach((anime, i) => {
       anime.forEach((detail, j) => {
@@ -71,6 +82,30 @@ class AnimeTableList extends PureComponent {
     noneMissing.sort((a, b) => a[0].localeCompare(b[0]));
     someMissing.sort((a, b) => a[0].localeCompare(b[0]));
     return noneMissing.concat(someMissing);
+  }
+
+  getDifferenceScores = (animeList) => {
+    let total = 0, count = 0, i = 0, j = 0;
+    animeList.forEach(anime => {
+      for (i=1; i < anime.length-1; i++) {
+        for (j=i+1; j < anime.length; j++) {
+          if (anime[i] !== '-' && anime[i] !== 0 && anime[j] !== '-' && anime[j] !== 0 && 
+              anime[i] !== '0' && anime[j] !== '0') {
+            total += Math.abs(anime[i] - anime[j]);
+            count += 1;
+          }
+        }
+      }
+
+      count === 0 ? anime.push('N/A') : anime.push(this.precisionRound((total/count), 1));
+      total = 0;
+      count = 0;
+    })
+  }
+
+  precisionRound = (number, precision) => {
+    let factor = Math.pow(10, precision);
+    return Math.round(number * factor) / factor;
   }
 
   render() {
