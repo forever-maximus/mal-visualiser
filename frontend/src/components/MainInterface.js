@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { Grid } from 'semantic-ui-react';
 import TotalGraph from './TotalGraph';
-import AnimeTableList from './AnimeTableList';
 import UserSearchInput from './UserSearchInput';
 import UserList from './UserList';
+import DetailsInterface from './DetailsInterface';
 import './styles/MainInterface.css';
 
 class MainInterface extends PureComponent {
@@ -31,7 +31,7 @@ class MainInterface extends PureComponent {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column>
-              <AnimeTableList userData={this.props.userData} users={this.props.users} 
+              <DetailsInterface userData={this.props.userData} users={this.props.users} 
                 useExample={this.props.useExample}/>
             </Grid.Column>
           </Grid.Row>

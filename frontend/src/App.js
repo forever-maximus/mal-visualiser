@@ -3,6 +3,10 @@ import MainInterfaceContainer from './containers/MainInterfaceContainer';
 import './App.css';
 
 class App extends Component {
+  getCurrentYear = () => {
+    return new Date().getFullYear();
+  }
+
   render() {
     return (
       <div className="App">
@@ -14,6 +18,9 @@ class App extends Component {
           to easily compare with friends.
         </p>
         <MainInterfaceContainer />
+        <footer className='App-footer'>
+          <div>Max Brereton &nbsp;&middot;&nbsp; {this.getCurrentYear()}</div>
+        </footer>
       </div>
     );
   }
