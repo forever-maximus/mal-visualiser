@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Table } from 'semantic-ui-react';
 import { exampleListData, exampleUserList } from '../example-data';
+import './styles/AnimeTable.css';
 
 class AnimeTableList extends PureComponent {
   getUsers = () => {
@@ -64,9 +65,15 @@ class AnimeTableList extends PureComponent {
     }
 
     let animeDetails = [], rows = [];
+    let diffColourLabel = '';
     sortedAnimeList.forEach((anime, i) => {
       anime.forEach((detail, j) => {
-        animeDetails.push(<Table.Cell key={j}>{detail}</Table.Cell>);
+        if (userList.length > 1 && j === userList.length + 1) {
+          diffColourLabel = this.getDifferenceColour(detail);
+          animeDetails.push(<Table.Cell key={j} className={diffColourLabel}>{detail}</Table.Cell>);
+        } else {
+          animeDetails.push(<Table.Cell key={j}>{detail}</Table.Cell>);
+        }
       });
       rows.push(<Table.Row key={i}>{animeDetails}</Table.Row>);
       animeDetails = [];
@@ -101,6 +108,20 @@ class AnimeTableList extends PureComponent {
       total = 0;
       count = 0;
     })
+  }
+
+  getDifferenceColour = (difference) => {
+    if (difference === 0) {
+      return 'equal';
+    } else if (difference === 'N/A') {
+      return '';
+    } else if (difference < 2) {
+      return 'minorDiff';
+    } else if (difference >= 2 && difference < 3) {
+      return 'mediumDiff';
+    } else {
+      return 'majorDiff';
+    }
   }
 
   precisionRound = (number, precision) => {

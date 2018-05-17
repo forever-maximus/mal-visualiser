@@ -1,0 +1,15 @@
+.equal {
+  color: #00bb33;
+}
+
+.minorDiff {
+  color: #ffcc00;
+}
+
+.mediumDiff {
+  color: #ff8800;
+}
+
+.majorDiff {
+  color: #ff4400;
+}
