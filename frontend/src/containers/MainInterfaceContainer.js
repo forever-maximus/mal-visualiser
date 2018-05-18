@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { get_user_ratings } from '../mal-api';
+import { get_user_ratings, get_anime_genre_data } from '../mal-api';
 import MainInterface from '../components/MainInterface';
 
 class MainInterfaceContainer extends Component {
@@ -128,6 +128,14 @@ class MainInterfaceContainer extends Component {
     } else {
       this.setState({userSearch: ev.target.value});
     }
+  }
+
+  componentDidMount() {
+    get_anime_genre_data().then(responseData => {
+      console.log(responseData);
+    }).catch(errorData => {
+      console.log(errorData);
+    });
   }
 
   render() {

@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 import requests
 import xmltodict, json
+import sqlite3
 
 app = Flask(__name__)
 CORS(app, resources=r'/api/*')
@@ -16,6 +17,15 @@ def get_mal_user_ratings(username):
     req = requests.get('https://myanimelist.net/malappinfo.php?status=all&type=anime&u=' + escaped_username)
     data = json.dumps(xmltodict.parse(req.text))
     return data
+
+@app.route('/api/get-genre-data')
+def get_anime_genre_data():
+    conn = sqlite3.connect('genre.db')
+    c = conn.cursor()
+    c.execute('SELECT * FROM genres')
+    genre_list = c.fetchall()
+    conn.close()
+    return json.dumps(genre_list)
 
 def escapeUserInput(userInput):
     userInput = userInput.replace('&', '&amp;')
