@@ -50,37 +50,6 @@ class MainInterfaceContainer extends Component {
     }
   }
 
-  removeUser = (user) => {
-    const userToRemove = user.username;
-    let newUserList = this.state.userList;
-    let newUserData = this.state.userData;
-
-    const indexUserToRemove = newUserList.indexOf(userToRemove);
-    if (indexUserToRemove > -1 && newUserList.length > 1) {
-      newUserList.splice(indexUserToRemove, 1);
-      let userDataToRemove = newUserData.findIndex(userDataItem => userDataItem.user === userToRemove);
-      newUserData.splice(userDataToRemove, 1);
-      
-      this.removeAggregateUserScore(userToRemove).then(newAggregateData => {
-        this.setState({
-          userList: [...newUserList],
-          userData: [...newUserData],
-          aggregateData: [...newAggregateData],
-        });
-      });
-    }
-  }
-
-  removeAggregateUserScore = (username) => {
-    return new Promise((resolve, reject) => {
-      let newAggregateData = this.state.aggregateData;
-      newAggregateData.forEach(datapoint => {
-        delete datapoint[username];
-      });
-      resolve(newAggregateData);
-    });
-  }
-
   addUserScore = (userMalData) => {
     let ratingData = [];
     const newUsername = this.state.userSearch;
@@ -101,6 +70,7 @@ class MainInterfaceContainer extends Component {
           isLoading: false,
           userSearch: '',
         });
+        this.clearUserSearch();
       });
     });
   }
@@ -159,6 +129,45 @@ class MainInterfaceContainer extends Component {
     });
   }
 
+  removeUser = (user) => {
+    const userToRemove = user.username;
+    let newUserList = this.state.userList;
+    let newUserData = this.state.userData;
+
+    const indexUserToRemove = newUserList.indexOf(userToRemove);
+    if (indexUserToRemove > -1 && newUserList.length > 1) {
+      newUserList.splice(indexUserToRemove, 1);
+      let userDataToRemove = newUserData.findIndex(userDataItem => userDataItem.user === userToRemove);
+      newUserData.splice(userDataToRemove, 1);
+      
+      this.removeAggregateUserData(userToRemove, 'rating').then(newAggregateData => {
+        this.removeAggregateUserData(userToRemove, 'genre').then(newAggregateGenreData => {
+          this.setState({
+            userList: [...newUserList],
+            userData: [...newUserData],
+            aggregateData: [...newAggregateData],
+            aggregateUserGenres: [...newAggregateGenreData],
+          });
+        });
+      });
+    }
+  }
+
+  removeAggregateUserData = (username, dataset) => {
+    return new Promise((resolve, reject) => {
+      let newAggregateData = [];
+      if (dataset === 'rating') {
+        newAggregateData = this.state.aggregateData;
+      } else if (dataset === 'genre') {
+        newAggregateData = this.state.aggregateUserGenres;
+      }
+      newAggregateData.forEach(datapoint => {
+        delete datapoint[username];
+      });
+      resolve(newAggregateData);
+    });
+  }
+
   updateUserSearch = (ev) => {
     if (ev.key === 'Enter') {
       this.searchUser();
@@ -167,6 +176,11 @@ class MainInterfaceContainer extends Component {
     } else {
       this.setState({userSearch: ev.target.value});
     }
+  }
+
+  clearUserSearch = () => {
+    let searchInput = document.getElementById('user_search');
+    searchInput.value = '';
   }
 
   componentDidMount() {

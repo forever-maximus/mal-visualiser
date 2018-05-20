@@ -13,7 +13,7 @@ class UserSearchInput extends PureComponent {
       <div>
         <Input placeholder='Username' onKeyUp={this.props.updateUserSearch}
           action={ <Button icon='search' content='Get Stats' onClick={this.props.searchUser}/> } 
-          loading={this.props.isLoading} iconPosition='left' icon='user'
+          loading={this.props.isLoading} iconPosition='left' icon='user' id='user_search'
         />
         {this.getInputErrors()}
       </div>
