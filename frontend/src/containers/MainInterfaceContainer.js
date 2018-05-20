@@ -11,6 +11,8 @@ class MainInterfaceContainer extends Component {
         {score: '1'}, {score: '2'}, {score: '3'}, {score: '4'}, {score: '5'}, 
         {score: '6'}, {score: '7'}, {score: '8'}, {score: '9'}, {score: '10'}, 
       ],
+      animeGenreList: {},
+      aggregateUserGenres: [],
       userList: [],
       userSearch: '',
       userSearchError: '',
@@ -89,13 +91,16 @@ class MainInterfaceContainer extends Component {
     const newScores = {user: newUsername, scores: ratingData};
     
     this.addAggregateUserScore(newUsername, ratingData).then(aggregateScores => {
-      this.setState({
-        userData: [...this.state.userData, newScores],
-        aggregateData: [...aggregateScores],
-        userList: [...this.state.userList, newUsername],
-        useExample: false,
-        isLoading: false,
-        userSearch: '',
+      this.addAggregateUserGenres(newUsername, ratingData).then(aggregateGenreData => {
+        this.setState({
+          userData: [...this.state.userData, newScores],
+          aggregateData: [...aggregateScores],
+          aggregateUserGenres: [...aggregateGenreData],
+          userList: [...this.state.userList, newUsername],
+          useExample: false,
+          isLoading: false,
+          userSearch: '',
+        });
       });
     });
   }
@@ -120,6 +125,40 @@ class MainInterfaceContainer extends Component {
     });
   }
 
+  addAggregateUserGenres = (user, ratingList) => {
+    return new Promise((resolve) => {
+      let genreList = this.state.animeGenreList;
+      let userGenreList = {};
+      let genres = [];
+      ratingList.forEach(element => {
+        if (genreList.hasOwnProperty(element.name)) {
+          genres = genreList[element.name];
+          genres.forEach(genre => {
+            if (userGenreList.hasOwnProperty(genre)) {
+              userGenreList[genre] += 1;
+            } else {
+              userGenreList[genre] = 1;
+            }
+          });
+        }
+      });
+
+      let index = 0;
+      let aggregateUserGenres = this.state.aggregateUserGenres;
+      // The nested findIndex here should not be too slow because the size of the aggregate
+      // genre list will always be relatively small.
+      Object.entries(userGenreList).forEach(([key, value]) => {
+        index = aggregateUserGenres.findIndex(item => (item.genre === key));
+        if (index < 0) {
+          aggregateUserGenres.push({genre: key, [user]: value});
+        } else {
+          aggregateUserGenres[index][user] = value;
+        }
+      });
+      resolve(aggregateUserGenres);
+    });
+  }
+
   updateUserSearch = (ev) => {
     if (ev.key === 'Enter') {
       this.searchUser();
@@ -132,7 +171,11 @@ class MainInterfaceContainer extends Component {
 
   componentDidMount() {
     get_anime_genre_data().then(responseData => {
-      console.log(responseData);
+      let genreData = {};
+      responseData.forEach(anime => {
+        genreData[anime[0]] = anime[1].split(',').map(item => item.trim());
+      });
+      this.setState({animeGenreList: genreData});
     }).catch(errorData => {
       console.log(errorData);
     });
