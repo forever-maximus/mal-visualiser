@@ -19,6 +19,34 @@ export const exampleAggregateData = [
   {score: '10', exampleUser: 1, 'Name Example': 1},
 ];
 
+export const exampleAggregateGenreData = [
+  {genre: 'Drama', exampleUser: 9, 'Name Example': 8},
+  {genre: 'Action', exampleUser: 7, 'Name Example': 9},
+  {genre: 'Comedy', exampleUser: 4, 'Name Example': 3},
+  {genre: 'Romance', exampleUser: 6, 'Name Example': 3},
+  {genre: 'Slice of Life', exampleUser: 2, 'Name Example': 1},
+  {genre: 'Mecha', exampleUser: 2, 'Name Example': 2},
+  {genre: 'Sci-Fi', exampleUser: 4, 'Name Example': 4},
+  {genre: 'Military', exampleUser: 3, 'Name Example': 4},
+  {genre: 'Super Power', exampleUser: 3, 'Name Example': 4},
+  {genre: 'Fantasy', exampleUser: 4, 'Name Example': 4},
+  {genre: 'Shounen', exampleUser: 5, 'Name Example': 5},
+  {genre: 'Mystery', exampleUser: 3, 'Name Example': 1},
+  {genre: 'Police', exampleUser: 1, 'Name Example': 1},
+  {genre: 'Seinen', exampleUser: 2, 'Name Example': 2},
+  {genre: 'Adventure', exampleUser: 5, 'Name Example': 5},
+  {genre: 'Magic', exampleUser: 1, 'Name Example': 1},
+  {genre: 'School', exampleUser: 3, 'Name Example': 1},
+  {genre: 'Music', exampleUser: 1, 'Name Example': 1},
+  {genre: 'Psychological', exampleUser: 1, 'Name Example': 1},
+  {genre: 'Space', exampleUser: 0, 'Name Example': 1},
+  {genre: 'Horror', exampleUser: 0, 'Name Example': 1},
+  {genre: 'Supernatural', exampleUser: 2, 'Name Example': 1},
+  {genre: 'Vampire', exampleUser: 0, 'Name Example': 1},
+  {genre: 'Thriller', exampleUser: 0, 'Name Example': 1},
+  {genre: 'Historical', exampleUser: 1, 'Name Example': 0},
+];
+
 export const exampleListData = [
   {
     user: 'exampleUser',

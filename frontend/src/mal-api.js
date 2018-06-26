@@ -23,7 +23,7 @@ export function get_user_ratings(username) {
 
 export function get_anime_genre_data() {
   return new Promise((resolve, reject) => {
-    axios.get(baseAddress + 'get-genre-data')
+    axios.get(baseAddress + 'genre-data')
     .then(function (response) {
       resolve(response.data);
     })

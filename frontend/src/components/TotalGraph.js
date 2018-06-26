@@ -17,7 +17,7 @@ class TotalGraph extends PureComponent {
     const selectedColourList = this.props.useExample ? exampleColourList : colourList;
 
     return selectedUserList.map((element, i) => {
-      return <Line dataKey={element} key={i} type='monotone' stroke={selectedColourList[i%5]} />;
+      return <Line dataKey={element} key={i} type='monotone' stroke={selectedColourList[i%5]}/>;
     });
   }
 
@@ -27,11 +27,11 @@ class TotalGraph extends PureComponent {
         <ResponsiveContainer width='100%' height={300}>
           <LineChart margin={{ top: 5, right: 20, bottom: 5, left: 0 }} 
               data={this.props.useExample ? exampleAggregateData : this.props.data}>
-            <CartesianGrid strokeDasharray='3 3' />
-            <XAxis dataKey='score' />
-            <YAxis />
+            <CartesianGrid strokeDasharray='3 3'/>
+            <XAxis dataKey='score'/>
+            <YAxis/>
             <Tooltip wrapperStyle={{opacity: 0.98, borderRadius: '5px'}}/>
-            <Legend />
+            <Legend/>
             {this.getGraphLines()}
           </LineChart>
         </ResponsiveContainer>

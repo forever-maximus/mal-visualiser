@@ -31,6 +31,8 @@ class MainInterfaceContainer extends Component {
       get_user_ratings(this.state.userSearch).then(responseData => {
         if (responseData.myanimelist === null) {
           this.raiseSearchError('This user can\'t be found on myanimelist', true);
+        } else if (responseData === 'MyAnimeList API is down - check back later') {
+          this.raiseSearchError(responseData, true)
         } else if (responseData.myanimelist.hasOwnProperty('anime') === false) {
           this.raiseSearchError('This user hasn\'t added any ratings yet', true);
         } else {
@@ -115,7 +117,7 @@ class MainInterfaceContainer extends Component {
 
       let index = 0;
       let aggregateUserGenres = this.state.aggregateUserGenres;
-      // The nested findIndex here should not be too slow because the size of the aggregate
+      // The nested findIndex here should not be slow because the size of the aggregate
       // genre list will always be relatively small.
       Object.entries(userGenreList).forEach(([key, value]) => {
         index = aggregateUserGenres.findIndex(item => (item.genre === key));

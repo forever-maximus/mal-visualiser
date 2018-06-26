@@ -15,10 +15,12 @@ def hello():
 def get_mal_user_ratings(username):
     escaped_username = escapeUserInput(username)
     req = requests.get('https://myanimelist.net/malappinfo.php?status=all&type=anime&u=' + escaped_username)
-    data = json.dumps(xmltodict.parse(req.text))
-    return data
+    if req.ok:
+        return json.dumps(xmltodict.parse(req.text))
+    else:
+        return 'MyAnimeList API is down - check back later'
 
-@app.route('/api/get-genre-data')
+@app.route('/api/genre-data')
 def get_anime_genre_data():
     conn = sqlite3.connect('genre.db')
     c = conn.cursor()
